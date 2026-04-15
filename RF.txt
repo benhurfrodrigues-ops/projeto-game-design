@@ -1,0 +1,22 @@
+1 - Escolher a Macro-Classe: 
+    - Física;
+    - Mental;
+    - Espiritual.
+
+2 - Escolher a Classe(exemplos, farei mais classes):
+    - Física: Gladivs(Corpo a corpo);
+    - Física: Biokinesis(Manipular a própria estrutura biológica);
+    - Mental: Telekinesis(Manipular o ambiente com o poder da mente);
+    - Mental: Hypnotic(Manipular o que o adversário vê ou sente);
+    - Espiritual: Necromantia(Ressucitar e manipular os mortos);
+    - Espiritual: Fides(Manipular energia espiritual ao seu favor)
+
+3 - Conseguir fractais:
+    - Você deve derrotar todas as nações comandadas pela raça primordial
+    (anjos) dentro de um continente, na ordem que preferir.
+
+4 - Viajar entre continentes:
+    - O jogador libera novos continentes quando mostra um fractal novo ao
+    Veleiro das Almas, que conduz o jogador até o local desejado.
+
+5 - Você salva o jogo deitando dentro de caixões em pontos específicos

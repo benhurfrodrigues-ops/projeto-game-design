@@ -1,0 +1,11 @@
+1 - Todas as escrituras relacionadas à lore devem estar em latim, falas 
+e mensagens, guias ou utorias podem estar em outra língua;
+
+2 - Um jogador pode ter até 4 classes;
+
+3 - As músicas devem ser no estilo dungeon synth ou canto gregoriano;
+
+4 - A janela de tempo da tela de carregamento deve ser >=2s a <=15s;
+
+5 - O jogador pode ter opção de trocar de armas facilmente em todos os 
+dispositivos
