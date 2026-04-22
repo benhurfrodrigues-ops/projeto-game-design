@@ -1,0 +1,26 @@
+MoSCoW e Valor X Esforço:
+
+RF:
+1 - M; Valor alto, Esforço alto.
+
+2 - S; Valor alto, Esforço alto.
+
+3 - M; Valor alto, Esforço alto.
+
+4 - W; Valor baixo, Esforço baixo.
+
+5 - W; Valor baixo, Esforço baixo.
+
+RNF:
+
+1 - C; Valor alto, Esforço baixo.
+
+2 - C; Valor alto, Esforço baixo.
+
+3 - S; Valor alto, Esforço alto.
+
+4 - S; Valor alto, Esforço alto.
+
+5 - C; Valor baixo, Esforço baixo.
+
+6 - M; Valor alto, Esforço alto.
