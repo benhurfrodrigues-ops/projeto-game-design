@@ -1,0 +1,25 @@
+RF:
+
+1: Valor Alto, Esforço Alto;
+
+2: Valor Alto, Esforço Alto;
+
+3: Valor Baixo, Esforço Baixo;
+
+4: Valor Alto, Esforço Baixo;
+
+5: Valor Baixo, Esforço Baixo.
+
+RNF:
+
+1: Valor Alto, Esforço Baixo;
+
+2: Valor Alto, Esforço Baixo;
+
+3: Valor Baixo, Esforço Baixo;
+
+4: Valor Alto, Esforço Alto;
+
+5: Valor Baixo, Esforço Baixo;
+
+6: Valor Alto, Esforço Alto.
