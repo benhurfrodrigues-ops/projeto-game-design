@@ -1,0 +1,7 @@
+Objetivos:
+
+1 - Gameplay intuitiva e criativa >= 85% dos casos OK;
+
+2 - Rodar liso >= 90% dos casos OK;
+
+3 - Bugs <= 10% dos casos OK.
