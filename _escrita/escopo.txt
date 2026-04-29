@@ -1,0 +1,15 @@
+Escopo:
+
+1 - Menu;
+
+2 - HUD;
+
+3 - Continetes:
+    - Umbralia;
+    - Colossus;
+    - Evrvs;
+    - Hyperborea;
+    - Atlantis;
+    - Arabk;
+    - Æzia;
+    - Afros;
