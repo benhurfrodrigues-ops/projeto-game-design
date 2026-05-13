@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Seleção de Classes - Analog Horror</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
+    background:black;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:'VT323', monospace;
+}
+
+/* =========================================
+   TELA
+========================================= */
+
+.screen{
+
+    position:relative;
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.82),
+            rgba(0,0,0,.95)
+        ),
+
+        url("dark-wall.jpg");
+
+    background-size:cover;
+    background-position:center;
+
+    filter:
+        contrast(1.1)
+        brightness(.9);
+}
+
+/* =========================================
+   DIVISÃO
+========================================= */
+
+.left-panel{
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:32%;
+    height:100%;
+
+    padding:60px 35px;
+
+    border-right:
+        1px solid rgba(255,255,255,.08);
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(0,0,0,.45),
+            rgba(0,0,0,.2)
+        );
+
+    z-index:10;
+}
+
+.right-panel{
+
+    position:absolute;
+
+    right:0;
+    top:0;
+
+    width:68%;
+    height:100%;
+
+    padding:40px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr 1fr 1fr;
+
+    gap:25px;
+
+    z-index:10;
+}
+
+/* =========================================
+   TEXTO LATERAL
+========================================= */
+
+.description{
+
+    color:#e5e5e5;
+
+    font-size:52px;
+
+    line-height:1;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.12);
+
+    animation:textBreath 4s infinite;
+}
+
+@keyframes textBreath{
+
+    0%{
+        opacity:.92;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:.92;
+    }
+
+}
+
+/* =========================================
+   BOTÃO
+========================================= */
+
+.finish{
+
+    position:absolute;
+
+    bottom:70px;
+    left:40px;
+
+    color:white;
+
+    font-size:54px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.15);
+}
+
+.finish:hover{
+
+    color:#ff4444;
+
+    transform:translateX(5px);
+
+    text-shadow:
+        0 0 15px red;
+}
+
+/* =========================================
+   TÍTULOS
+========================================= */
+
+.section-title{
+
+    position:absolute;
+
+    left:50%;
+    transform:translateX(-50%);
+
+    font-size:26px;
+
+    letter-spacing:4px;
+
+    opacity:.6;
+}
+
+.physical-title{
+
+    top:18px;
+    color:#ff5500;
+}
+
+.mental-title{
+
+    top:34%;
+    color:#7a5cff;
+}
+
+.spiritual-title{
+
+    top:67%;
+    color:#00ffb3;
+}
+
+/* =========================================
+   CLASSES
+========================================= */
+
+.class-box{
+
+    position:relative;
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    background:
+        rgba(0,0,0,.18);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    transition:.35s;
+
+    overflow:hidden;
+}
+
+.class-box:hover{
+
+    transform:scale(1.03);
+
+    background:
+        rgba(255,255,255,.03);
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.08);
+}
+
+/* =========================================
+   STICKMAN
+========================================= */
+
+.stickman{
+
+    position:relative;
+
+    width:100px;
+    height:140px;
+}
+
+/* CABEÇA */
+
+.head{
+
+    position:absolute;
+
+    width:20px;
+    height:20px;
+
+    border-radius:50%;
+
+    border:2px solid currentColor;
+
+    left:50%;
+    top:0;
+
+    transform:translateX(-50%);
+}
+
+/* CORPO */
+
+.body{
+
+    position:absolute;
+
+    width:2px;
+    height:45px;
+
+    background:currentColor;
+
+    left:50%;
+    top:22px;
+
+    transform:translateX(-50%);
+}
+
+/* BRAÇOS */
+
+.arm-left,
+.arm-right{
+
+    position:absolute;
+
+    width:35px;
+    height:2px;
+
+    background:currentColor;
+
+    top:45px;
+}
+
+.arm-left{
+
+    left:18px;
+    transform:rotate(35deg);
+}
+
+.arm-right{
+
+    right:18px;
+    transform:rotate(-35deg);
+}
+
+/* PERNAS */
+
+.leg-left,
+.leg-right{
+
+    position:absolute;
+
+    width:35px;
+    height:2px;
+
+    background:currentColor;
+
+    top:85px;
+}
+
+.leg-left{
+
+    left:20px;
+    transform:rotate(45deg);
+}
+
+.leg-right{
+
+    right:20px;
+    transform:rotate(-45deg);
+}
+
+/* =========================================
+   CORES
+========================================= */
+
+.physical{
+    color:#ff5500;
+}
+
+.mental{
+    color:#7a5cff;
+}
+
+.spiritual{
+    color:#00ffb3;
+}
+
+/* =========================================
+   NOMES
+========================================= */
+
+.class-name{
+
+    margin-top:10px;
+
+    font-size:26px;
+
+    opacity:.85;
+
+    letter-spacing:2px;
+}
+
+.class-desc{
+
+    font-size:18px;
+
+    opacity:.55;
+
+    text-align:center;
+
+    width:80%;
+}
+
+/* =========================================
+   VHS PLAY
+========================================= */
+
+.play{
+
+    position:absolute;
+
+    top:18px;
+    left:22px;
+
+    color:white;
+
+    font-size:40px;
+
+    z-index:50;
+
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.3;
+    }
+
+    100%{
+        opacity:1;
+    }
+
+}
+
+/* =========================================
+   VHS TIME
+========================================= */
+
+.time{
+
+    position:absolute;
+
+    top:70px;
+    left:22px;
+
+    color:white;
+
+    font-size:28px;
+
+    letter-spacing:2px;
+
+    z-index:50;
+
+    text-shadow:
+        2px 0 red,
+        -2px 0 blue;
+}
+
+/* =========================================
+   SCANLINES
+========================================= */
+
+.scanlines{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,.015),
+            rgba(255,255,255,.015) 1px,
+            rgba(0,0,0,.14) 3px
+        );
+
+    pointer-events:none;
+
+    z-index:90;
+}
+
+/* =========================================
+   NOISE
+========================================= */
+
+.noise{
+
+    position:absolute;
+    inset:0;
+
+    background-image:url("noise.png");
+
+    opacity:.08;
+
+    mix-blend-mode:screen;
+
+    animation:noise .2s infinite;
+
+    z-index:100;
+}
+
+@keyframes noise{
+
+    0%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(-1px,1px);
+    }
+
+    40%{
+        transform:translate(1px,-1px);
+    }
+
+    60%{
+        transform:translate(-2px,0);
+    }
+
+    80%{
+        transform:translate(2px,1px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+/* =========================================
+   RGB SHIFT
+========================================= */
+
+.rgb{
+
+    position:absolute;
+    inset:0;
+
+    box-shadow:
+        inset 2px 0 rgba(255,0,0,.05),
+        inset -2px 0 rgba(0,0,255,.05);
+
+    z-index:80;
+
+    pointer-events:none;
+}
+
+/* =========================================
+   GLITCH
+========================================= */
+
+.glitch{
+
+    position:absolute;
+    inset:0;
+
+    z-index:95;
+
+    pointer-events:none;
+
+    animation:glitch 6s infinite;
+}
+
+@keyframes glitch{
+
+    0%{
+        transform:translate(0);
+    }
+
+    95%{
+        transform:translate(0);
+    }
+
+    96%{
+        transform:translate(-3px,2px);
+    }
+
+    97%{
+        transform:translate(4px,-2px);
+    }
+
+    98%{
+        transform:translate(-2px,1px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+/* =========================================
+   VINHETA
+========================================= */
+
+.vignette{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            transparent 55%,
+            rgba(0,0,0,.8)
+        );
+
+    z-index:70;
+
+    pointer-events:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+
+    <!-- VHS -->
+    <div class="play">
+        PLAY ▶
+    </div>
+
+    <div class="time">
+
+        PM --:--:--<br>
+        OUT. -- -- ----
+
+    </div>
+
+    <!-- LEFT -->
+    <div class="left-panel">
+
+        <div class="description">
+
+            Você pode<br>
+            escolher até 4<br>
+            classes, cada<br>
+            uma evolui e<br>
+            complementa<br>
+            a outra.
+
+        </div>
+
+        <div class="finish">
+
+            FINALIZAR<br>
+            SELEÇÃO
+
+        </div>
+
+    </div>
+
+    <!-- TITLES -->
+    <div class="section-title physical-title">
+        FÍSICA
+    </div>
+
+    <div class="section-title mental-title">
+        MENTAL
+    </div>
+
+    <div class="section-title spiritual-title">
+        ESPIRITUAL
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-panel">
+
+        <!-- GLADIUS -->
+        <div class="class-box physical">
+
+            <div class="stickman">
+
+                <div class="head"></div>
+                <div class="body"></div>
+
+                <div class="arm-left"></div>
+                <div class="arm-right"></div>
+
+                <div class="leg-left"></div>
+                <div class="leg-right"></div>
+
+            </div>
+
+            <div class="class-name">
+                Gladius
+            </div>
+
+            <div class="class-desc">
+                corpo a corpo
+            </div>
+
+        </div>
+
+        <!-- BIKINESIS -->
+        <div class="class-box physical">
+
+            <div class="stickman">
+
+                <div class="head"></div>
+                <div class="body"></div>
+
+                <div class="arm-left"></div>
+                <div class="arm-right"></div>
+
+                <div class="leg-left"></div>
+                <div class="leg-right"></div>
+
+            </div>
+
+            <div class="class-name">
+                Biokinesis
+            </div>
+
+            <div class="class-desc">
+                manipulação biológica
+            </div>
+
+        </div>
+
+        <!-- TELEKINESIS -->
+        <div class="class-box mental">
+
+            <div class="stickman">
+
+                <div class="head"></div>
+                <div class="body"></div>
+
+                <div class="arm-left"></div>
+                <div class="arm-right"></div>
+
+                <div class="leg-left"></div>
+                <div class="leg-right"></div>
+
+            </div>
+
+            <div class="class-name">
+                Telekinesis
+            </div>
+
+            <div class="class-desc">
+                manipula ambiente
+            </div>
+
+        </div>
+
+        <!-- HYPNOTIC -->
+        <div class="class-box mental">
+
+            <div class="stickman">
+
+                <div class="head"></div>
+                <div class="body"></div>
+
+                <div class="arm-left"></div>
+                <div class="arm-right"></div>
+
+                <div class="leg-left"></div>
+                <div class="leg-right"></div>
+
+            </div>
+
+            <div class="class-name">
+                Hypnotic
+            </div>
+
+            <div class="class-desc">
+                ilusão e controle
+            </div>
+
+        </div>
+
+        <!-- NECROMANTIC -->
+        <div class="class-box spiritual">
+
+            <div class="stickman">
+
+                <div class="head"></div>
+                <div class="body"></div>
+
+                <div class="arm-left"></div>
+                <div class="arm-right"></div>
+
+                <div class="leg-left"></div>
+                <div class="leg-right"></div>
+
+            </div>
+
+            <div class="class-name">
+                Necromantic
+            </div>
+
+            <div class="class-desc">
+                ressuscita os mortos
+            </div>
+
+        </div>
+
+        <!-- FIDES -->
+        <div class="class-box spiritual">
+
+            <div class="stickman">
+
+                <div class="head"></div>
+                <div class="body"></div>
+
+                <div class="arm-left"></div>
+                <div class="arm-right"></div>
+
+                <div class="leg-left"></div>
+                <div class="leg-right"></div>
+
+            </div>
+
+            <div class="class-name">
+                Fides
+            </div>
+
+            <div class="class-desc">
+                energia espiritual
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- EFFECTS -->
+    <div class="vignette"></div>
+
+    <div class="rgb"></div>
+
+    <div class="scanlines"></div>
+
+    <div class="glitch"></div>
+
+    <div class="noise"></div>
+
+</div>
+
+<script>
+
+/* =========================================
+   CAMERA SHAKE
+========================================= */
+
+setInterval(() => {
+
+    const screen =
+        document.querySelector(".screen");
+
+    const x =
+        (Math.random() - 0.5) * 1.2;
+
+    const y =
+        (Math.random() - 0.5) * 1.2;
+
+    screen.style.transform =
+        `translate(${x}px, ${y}px)`;
+
+}, 90);
+
+/* =========================================
+   VHS FILTER
+========================================= */
+
+setInterval(() => {
+
+    document.body.style.filter =
+
+        `contrast(${1 + Math.random() * 0.04})
+         brightness(${0.97 + Math.random() * 0.03})`;
+
+}, 120);
+
+/* =========================================
+   RANDOM GLITCH
+========================================= */
+
+setInterval(() => {
+
+    if(Math.random() > 0.96){
+
+        document.querySelector(".screen")
+        .style.transform =
+
+        `translate(
+            ${(Math.random()-0.5)*8}px,
+            ${(Math.random()-0.5)*4}px
+        )`;
+
+    }
+
+}, 500);
+
+</script>
+
+</body>
+</html>

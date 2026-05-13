@@ -1,0 +1,805 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Boss Fight Analog Horror</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    background:black;
+    font-family:'VT323', monospace;
+}
+
+/* =========================================
+   CENA
+========================================= */
+
+.scene{
+
+    position:relative;
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
+    background:black;
+}
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background{
+
+    position:absolute;
+    inset:0;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.11),
+            rgba(71, 71, 71, 0.82)
+        ),
+        url("images/gameplay2.png");
+
+    background-size:cover;
+    background-position:center;
+
+    filter:
+        brightness(.65)
+        contrast(1.25)
+        saturate(.7);
+
+    transform:scale(1.03);
+}
+
+/* =========================================
+   FOG
+========================================= */
+
+.fog{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(circle at 30% 50%,
+        rgba(255,255,255,.05),
+        transparent 40%),
+
+        radial-gradient(circle at 80% 40%,
+        rgba(255,255,255,.03),
+        transparent 30%);
+
+    animation:fogMove 18s linear infinite;
+
+    z-index:2;
+}
+
+@keyframes fogMove{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    50%{
+        transform:translateX(-25px);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
+
+}
+
+/* =========================================
+   PERSONAGEM
+========================================= */
+
+.player{
+
+    position:absolute;
+
+    width:420px;
+    height:85%;
+
+    left:50%;
+    bottom:-20px;
+
+    transform:translateX(-50%);
+
+    background-image:url("player.png");
+
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center bottom;
+
+    filter:
+        brightness(.65)
+        contrast(1.2)
+        drop-shadow(0 0 30px black);
+
+    z-index:10;
+}
+
+/* =========================================
+   BOSS
+========================================= */
+
+.boss{
+
+    position:absolute;
+
+    width:320px;
+    height:70%;
+
+    right:25%;
+    top:8%;
+
+    background-image:url("voodoo-boss.png");
+
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+
+    z-index:9;
+
+    animation:floatBoss 5s ease-in-out infinite;
+
+    filter:
+        drop-shadow(0 0 40px purple)
+        brightness(.75);
+}
+
+@keyframes floatBoss{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* =========================================
+   MAGIA ROXA
+========================================= */
+
+.magic{
+
+    position:absolute;
+
+    width:140px;
+    height:140px;
+
+    right:31%;
+    top:23%;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            rgba(140,0,255,.9),
+            rgba(140,0,255,.1),
+            transparent
+        );
+
+    filter:blur(25px);
+
+    animation:pulse 2s infinite;
+
+    z-index:5;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+        opacity:.4;
+    }
+
+    50%{
+        transform:scale(1.25);
+        opacity:.8;
+    }
+
+    100%{
+        transform:scale(1);
+        opacity:.4;
+    }
+
+}
+
+/* =========================================
+   HUD
+========================================= */
+
+.hud{
+
+    position:absolute;
+
+    top:25px;
+    left:30px;
+
+    z-index:50;
+
+    color:white;
+}
+
+/* =========================================
+   TEXTO
+========================================= */
+
+.label{
+
+    font-size:34px;
+
+    margin-bottom:6px;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.3);
+}
+
+/* =========================================
+   BARRAS
+========================================= */
+
+.bar{
+
+    width:320px;
+    height:18px;
+
+    background:#222;
+
+    border:2px solid #111;
+
+    overflow:hidden;
+
+    margin-bottom:15px;
+
+    box-shadow:
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,.8);
+}
+
+.health{
+
+    width:100%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            to right,
+            #330000,
+            red
+        );
+}
+
+.stamina{
+
+    width:80%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            to right,
+            #112900,
+            #65ff65
+        );
+}
+
+/* =========================================
+   PLAY VHS
+========================================= */
+
+.play{
+
+    position:absolute;
+
+    top:135px;
+    left:38px;
+
+    color:white;
+
+    font-size:52px;
+
+    z-index:50;
+
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.3;
+    }
+
+    100%{
+        opacity:1;
+    }
+
+}
+
+/* =========================================
+   DATA VHS
+========================================= */
+
+.time{
+
+    position:absolute;
+
+    left:35px;
+    bottom:25px;
+
+    color:white;
+
+    font-size:58px;
+
+    letter-spacing:4px;
+
+    z-index:50;
+
+    text-shadow:
+        2px 0 red,
+        -2px 0 blue;
+}
+
+/* =========================================
+   OBJETIVO
+========================================= */
+
+.objective{
+
+    position:absolute;
+
+    right:35px;
+    bottom:30px;
+
+    width:300px;
+
+    color:white;
+
+    font-size:32px;
+
+    text-align:right;
+
+    z-index:50;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.25);
+}
+
+/* =========================================
+   BOSS HP
+========================================= */
+
+.boss-hud{
+
+    position:absolute;
+
+    top:35px;
+    right:50%;
+
+    transform:translateX(50%);
+
+    width:600px;
+
+    z-index:60;
+}
+
+.boss-name{
+
+    color:#ff4dff;
+
+    font-size:40px;
+
+    margin-bottom:8px;
+
+    text-align:center;
+
+    text-shadow:
+        0 0 12px purple;
+}
+
+.boss-bar{
+
+    width:100%;
+    height:24px;
+
+    background:#111;
+
+    border:2px solid #330033;
+
+    overflow:hidden;
+}
+
+.boss-life{
+
+    width:100%;
+
+    height:100%;
+
+    background:
+        linear-gradient(
+            to right,
+            #4b004b,
+            #ff00ff
+        );
+
+    animation:bossPulse 2s infinite;
+}
+
+@keyframes bossPulse{
+
+    0%{
+        filter:brightness(1);
+    }
+
+    50%{
+        filter:brightness(1.3);
+    }
+
+    100%{
+        filter:brightness(1);
+    }
+
+}
+
+/* =========================================
+   NOISE VHS
+========================================= */
+
+.noise{
+
+    position:absolute;
+    inset:0;
+
+    background-image:
+        url("noise.png");
+
+    opacity:.08;
+
+    mix-blend-mode:screen;
+
+    animation:noise .18s infinite;
+
+    pointer-events:none;
+
+    z-index:100;
+}
+
+@keyframes noise{
+
+    0%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(-1px,1px);
+    }
+
+    40%{
+        transform:translate(1px,-1px);
+    }
+
+    60%{
+        transform:translate(-2px,0px);
+    }
+
+    80%{
+        transform:translate(2px,1px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+/* =========================================
+   SCANLINES
+========================================= */
+
+.scanlines{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,.02),
+            rgba(255,255,255,.02) 1px,
+            rgba(0,0,0,.15) 3px
+        );
+
+    pointer-events:none;
+
+    z-index:90;
+}
+
+/* =========================================
+   RGB SHIFT
+========================================= */
+
+.rgb{
+
+    position:absolute;
+    inset:0;
+
+    box-shadow:
+        inset 2px 0 rgba(255,0,0,.08),
+        inset -2px 0 rgba(0,0,255,.08);
+
+    z-index:80;
+
+    pointer-events:none;
+}
+
+/* =========================================
+   GLITCH
+========================================= */
+
+.glitch{
+
+    position:absolute;
+    inset:0;
+
+    z-index:95;
+
+    pointer-events:none;
+
+    animation:glitch 5s infinite;
+}
+
+@keyframes glitch{
+
+    0%{
+        transform:translate(0);
+    }
+
+    92%{
+        transform:translate(0);
+    }
+
+    93%{
+        transform:translate(-4px,2px);
+    }
+
+    94%{
+        transform:translate(5px,-2px);
+    }
+
+    95%{
+        transform:translate(-2px,1px);
+    }
+
+    96%{
+        transform:translate(0);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+/* =========================================
+   VINHETA
+========================================= */
+
+.vignette{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            transparent 50%,
+            rgba(0,0,0,.7)
+        );
+
+    z-index:70;
+
+    pointer-events:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <!-- BACKGROUND -->
+    <div class="background"></div>
+
+    <!-- FOG -->
+    <div class="fog"></div>
+
+    <!-- MAGIC -->
+    <div class="magic"></div>
+
+    <!-- PLAYER -->
+    <div class="player"></div>
+
+    <!-- BOSS -->
+    <div class="boss"></div>
+
+    <!-- HUD -->
+    <div class="hud">
+
+        <div class="label">
+            VITALIDADE: 100%
+        </div>
+
+        <div class="bar">
+            <div class="health"></div>
+        </div>
+
+        <div class="label">
+            ESTAMINA: 80%
+        </div>
+
+        <div class="bar">
+            <div class="stamina"></div>
+        </div>
+
+    </div>
+
+    <!-- PLAY -->
+    <div class="play">
+        PLAY ▶
+    </div>
+
+    <!-- VHS TIME -->
+    <div class="time">
+
+        PM --:--:--<br>
+        OUT. -- -- ----
+
+    </div>
+
+    <!-- OBJETIVO -->
+    <div class="objective">
+
+        OBJETIVO:<br>
+        Investigar a Sombra<br>
+        na Fazenda (180m)
+
+    </div>
+
+    <!-- BOSS HUD -->
+    <div class="boss-hud">
+
+        <div class="boss-name">
+            MESTRE VOODOO
+        </div>
+
+        <div class="boss-bar">
+            <div class="boss-life"></div>
+        </div>
+
+    </div>
+
+    <!-- EFFECTS -->
+    <div class="vignette"></div>
+
+    <div class="rgb"></div>
+
+    <div class="scanlines"></div>
+
+    <div class="glitch"></div>
+
+    <div class="noise"></div>
+
+</div>
+
+<script>
+
+/* =========================================
+   CAMERA SHAKE
+========================================= */
+
+setInterval(() => {
+
+    const scene =
+        document.querySelector(".scene");
+
+    const x =
+        (Math.random() - 0.5) * 2;
+
+    const y =
+        (Math.random() - 0.5) * 2;
+
+    scene.style.transform =
+        `translate(${x}px, ${y}px)`;
+
+}, 80);
+
+/* =========================================
+   VHS BRIGHTNESS
+========================================= */
+
+setInterval(() => {
+
+    document.body.style.filter =
+
+        `contrast(${1 + Math.random() * 0.06})
+         brightness(${0.96 + Math.random() * 0.05})`;
+
+}, 120);
+
+/* =========================================
+   HORROR FLASH
+========================================= */
+
+setInterval(() => {
+
+    if(Math.random() > 0.96){
+
+        document.body.style.filter =
+            "brightness(1.35) contrast(1.4)";
+
+        setTimeout(() => {
+
+            document.body.style.filter =
+                "brightness(1) contrast(1)";
+
+        }, 80);
+
+    }
+
+}, 500);
+
+/* =========================================
+   BOSS BAR DAMAGE TEST
+========================================= */
+
+let bossLife = 100;
+
+setInterval(() => {
+
+    if(bossLife > 10){
+
+        bossLife -= Math.random() * 2;
+
+        document.querySelector(".boss-life")
+        .style.width = bossLife + "%";
+    }
+
+}, 1200);
+
+</script>
+
+</body>
+</html>
+```

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Umbralia - Vale do Sofrimento</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    overflow:hidden;
+
+    background:black;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    width:100vw;
+    height:100vh;
+
+    font-family:'VT323', monospace;
+}
+
+/* =========================================
+   TELA
+========================================= */
+
+.scene{
+
+    position:relative;
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
+    background:black;
+}
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background{
+
+    position:absolute;
+    inset:0;
+
+    background-image:
+        linear-gradient(
+            rgba(224, 224, 224, 0.096),
+            rgba(116, 116, 116, 0.65)
+        ),
+        url("images/loading.png");
+
+    background-size:cover;
+    background-position:center;
+
+    filter:
+        grayscale(.4)
+        brightness(.7)
+        contrast(1.15);
+
+    transform:scale(1.02);
+
+    animation:bgBreath 10s ease-in-out infinite;
+}
+
+@keyframes bgBreath{
+
+    0%{
+        transform:scale(1.02);
+    }
+
+    50%{
+        transform:scale(1.04);
+    }
+
+    100%{
+        transform:scale(1.02);
+    }
+
+}
+
+/* =========================================
+   NÉVOA
+========================================= */
+
+.fog{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(circle at 20% 40%,
+        rgba(255,255,255,.06),
+        transparent 40%),
+
+        radial-gradient(circle at 80% 60%,
+        rgba(255,255,255,.04),
+        transparent 35%),
+
+        radial-gradient(circle at 50% 90%,
+        rgba(255,255,255,.03),
+        transparent 30%);
+
+    animation:fogMove 16s linear infinite;
+
+    z-index:2;
+}
+
+@keyframes fogMove{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    50%{
+        transform:translateX(-30px);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
+
+}
+
+/* =========================================
+   OVERLAY ESCURO
+========================================= */
+
+.dark-overlay{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.45)
+        );
+
+    z-index:3;
+}
+
+/* =========================================
+   TÍTULO
+========================================= */
+
+.title{
+
+    position:absolute;
+
+    left:40px;
+    bottom:170px;
+
+    z-index:20;
+
+    color:#f2f2f2;
+
+    font-size:52px;
+
+    line-height:1.1;
+
+    font-family:'Cinzel', serif;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.15),
+        0 0 20px rgba(255,255,255,.08);
+
+    animation:titleFlicker 4s infinite;
+}
+
+@keyframes titleFlicker{
+
+    0%{
+        opacity:1;
+    }
+
+    96%{
+        opacity:1;
+    }
+
+    97%{
+        opacity:.75;
+    }
+
+    98%{
+        opacity:1;
+    }
+
+    99%{
+        opacity:.85;
+    }
+
+    100%{
+        opacity:1;
+    }
+
+}
+
+/* =========================================
+   DESCRIÇÃO
+========================================= */
+
+.description{
+
+    position:absolute;
+
+    left:42px;
+    bottom:60px;
+
+    width:700px;
+
+    color:#e0e0e0;
+
+    font-size:38px;
+
+    line-height:1;
+
+    z-index:20;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,.15);
+}
+
+/* =========================================
+   LINHA VHS
+========================================= */
+
+.loading-line{
+
+    position:absolute;
+
+    left:25px;
+    bottom:18px;
+
+    width:88%;
+    height:4px;
+
+    background:
+        linear-gradient(
+            to right,
+            white,
+            rgba(255,255,255,.2)
+        );
+
+    z-index:25;
+
+    animation:loading 7s infinite;
+}
+
+@keyframes loading{
+
+    0%{
+        width:0%;
+    }
+
+    100%{
+        width:88%;
+    }
+
+}
+
+/* =========================================
+   VHS PLAY
+========================================= */
+
+.play{
+
+    position:absolute;
+
+    top:28px;
+    left:35px;
+
+    color:white;
+
+    font-size:46px;
+
+    z-index:40;
+
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.35;
+    }
+
+    100%{
+        opacity:1;
+    }
+
+}
+
+/* =========================================
+   VHS TIME
+========================================= */
+
+.time{
+
+    position:absolute;
+
+    top:90px;
+    left:35px;
+
+    color:white;
+
+    font-size:34px;
+
+    letter-spacing:3px;
+
+    z-index:40;
+
+    text-shadow:
+        2px 0 red,
+        -2px 0 blue;
+}
+
+/* =========================================
+   VINHETA
+========================================= */
+
+.vignette{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            transparent 50%,
+            rgba(0,0,0,.78)
+        );
+
+    z-index:15;
+
+    pointer-events:none;
+}
+
+/* =========================================
+   SCANLINES
+========================================= */
+
+.scanlines{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,.02),
+            rgba(255,255,255,.02) 1px,
+            rgba(0,0,0,.16) 3px
+        );
+
+    pointer-events:none;
+
+    z-index:60;
+}
+
+/* =========================================
+   RGB SHIFT
+========================================= */
+
+.rgb{
+
+    position:absolute;
+    inset:0;
+
+    box-shadow:
+        inset 2px 0 rgba(255,0,0,.06),
+        inset -2px 0 rgba(0,0,255,.06);
+
+    z-index:55;
+
+    pointer-events:none;
+}
+
+/* =========================================
+   GLITCH
+========================================= */
+
+.glitch{
+
+    position:absolute;
+    inset:0;
+
+    z-index:65;
+
+    pointer-events:none;
+
+    animation:glitch 5s infinite;
+}
+
+@keyframes glitch{
+
+    0%{
+        transform:translate(0);
+    }
+
+    94%{
+        transform:translate(0);
+    }
+
+    95%{
+        transform:translate(-4px,2px);
+    }
+
+    96%{
+        transform:translate(4px,-2px);
+    }
+
+    97%{
+        transform:translate(-2px,1px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+/* =========================================
+   NOISE
+========================================= */
+
+.noise{
+
+    position:absolute;
+    inset:0;
+
+    background-image:url("noise.png");
+
+    opacity:.08;
+
+    mix-blend-mode:screen;
+
+    animation:noise .2s infinite;
+
+    z-index:70;
+
+    pointer-events:none;
+}
+
+@keyframes noise{
+
+    0%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(-1px,1px);
+    }
+
+    40%{
+        transform:translate(1px,-1px);
+    }
+
+    60%{
+        transform:translate(-2px,0);
+    }
+
+    80%{
+        transform:translate(2px,1px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+/* =========================================
+   FLASH HORROR
+========================================= */
+
+.flash{
+
+    position:absolute;
+    inset:0;
+
+    background:white;
+
+    opacity:0;
+
+    z-index:90;
+
+    pointer-events:none;
+}
+
+/* =========================================
+   CRUZES AO FUNDO
+========================================= */
+
+.cross{
+
+    position:absolute;
+
+    bottom:70px;
+
+    width:8px;
+    height:120px;
+
+    background:#111;
+
+    z-index:5;
+}
+
+.cross::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:30px;
+    left:-25px;
+
+    width:60px;
+    height:8px;
+
+    background:#111;
+}
+
+.cross1{
+    left:78%;
+}
+
+.cross2{
+    left:83%;
+    height:90px;
+}
+
+.cross3{
+    left:88%;
+    height:140px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <!-- BACKGROUND -->
+    <div class="background"></div>
+
+    <!-- FOG -->
+    <div class="fog"></div>
+
+    <!-- CROSSES -->
+    <div class="cross cross1"></div>
+    <div class="cross cross2"></div>
+    <div class="cross cross3"></div>
+
+    <!-- DARK -->
+    <div class="dark-overlay"></div>
+
+    <!-- PLAY -->
+    <div class="play">
+        PLAY ▶
+    </div>
+
+    <!-- TIME -->
+    <div class="time">
+
+        PM --:--:--<br>
+        OUT. -- -- ----
+
+    </div>
+
+    <!-- TITLE -->
+    <div class="title">
+
+        UMBRALIA<br>
+        <span style="font-size:30px;">
+            VALE DO SOFRIMENTO
+        </span>
+
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="description">
+
+        Cadeado do Inferno:<br>
+
+        Todo mundo que para aí diz que não merecia,<br>
+        ou que ainda estão vivos.
+
+    </div>
+
+    <!-- VHS LOADING -->
+    <div class="loading-line"></div>
+
+    <!-- EFFECTS -->
+    <div class="vignette"></div>
+
+    <div class="rgb"></div>
+
+    <div class="scanlines"></div>
+
+    <div class="glitch"></div>
+
+    <div class="noise"></div>
+
+    <div class="flash"></div>
+
+</div>
+
+<script>
+
+/* =========================================
+   CAMERA SHAKE
+========================================= */
+
+setInterval(() => {
+
+    const scene =
+        document.querySelector(".scene");
+
+    const x =
+        (Math.random() - 0.5) * 1.5;
+
+    const y =
+        (Math.random() - 0.5) * 1.5;
+
+    scene.style.transform =
+        `translate(${x}px, ${y}px)`;
+
+}, 90);
+
+/* =========================================
+   VHS BRIGHTNESS
+========================================= */
+
+setInterval(() => {
+
+    document.body.style.filter =
+
+        `contrast(${1 + Math.random() * 0.05})
+         brightness(${0.95 + Math.random() * 0.05})`;
+
+}, 120);
+
+/* =========================================
+   FLASH HORROR
+========================================= */
+
+setInterval(() => {
+
+    if(Math.random() > 0.97){
+
+        const flash =
+            document.querySelector(".flash");
+
+        flash.style.opacity = ".12";
+
+        setTimeout(() => {
+
+            flash.style.opacity = "0";
+
+        }, 60);
+
+    }
+
+}, 400);
+
+/* =========================================
+   GLITCH TEXT
+========================================= */
+
+setInterval(() => {
+
+    const title =
+        document.querySelector(".title");
+
+    if(Math.random() > 0.95){
+
+        title.style.transform =
+            `translateX(${Math.random()*3}px)`;
+
+        setTimeout(() => {
+
+            title.style.transform =
+                "translateX(0px)";
+
+        }, 70);
+
+    }
+
+}, 500);
+
+</script>
+
+</body>
+</html>
